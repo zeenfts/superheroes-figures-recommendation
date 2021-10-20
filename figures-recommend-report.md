@@ -35,7 +35,7 @@ Berikut merupakan tujuan dibuatnya proyek ini:
 
 ### Solution approach
 Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
-- Memilih sistem rekomendasi [*content-based filtering*](https://codeburst.io/explanation-of-recommender-systems-in-information-retrieval-13077e1d916c) yang memiliki kesesuaian dengan dataset dimana tidak harus memerlukan adanya informasi dari sang pengoleksi *action figures*.
+- Memilih sistem rekomendasi [*content-based filtering*](https://codeburst.io/explanation-of-recommender-systems-in-information-retrieval-13077e1d916c) yang memiliki kesesuaian dengan dataset dimana tidak harus memerlukan adanya informasi dari sang pengoleksi *action figures*. Kemudian sebelum dilakukan pembuatan sistem rekomendasi, dataset akan dilakukan proses *preparation* terlebih dahulu dan setelahnya akan ditampilkan hasil rekomendasi yang ada (jika memungkinkan juga akan dievaluasi seberapa baik hasil rekomendasi tersebut).
 - Memilih tiga algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
   * Algoritma `Nearest Neighbors` yang menerapkan jarak **Jaccard**. 
     
