@@ -37,7 +37,7 @@ Berikut merupakan tujuan dibuatnya proyek ini:
 Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
 - Memilih sistem rekomendasi [*content-based filtering*](https://codeburst.io/explanation-of-recommender-systems-in-information-retrieval-13077e1d916c) yang memiliki kesesuaian dengan dataset dimana tidak harus memerlukan adanya informasi dari sang pengoleksi *action figures*. Kemudian sebelum dilakukan pembuatan sistem rekomendasi, dataset akan dilakukan proses *preparation* terlebih dahulu dan setelahnya akan ditampilkan hasil rekomendasi yang ada (jika memungkinkan juga akan dievaluasi seberapa baik hasil rekomendasi tersebut).
 - Memilih tiga algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
-  * Algoritma `Nearest Neighbors` yang menerapkan jarak **Jaccard**. 
+  * Algoritma `Nearest Neighbors (NN)` yang menerapkan jarak **Jaccard**. 
     
     Algoritma ini dipilih mengingat kesederhanaan dalam penggunaan, kemudian karena permasalahan berkaitan dengan *unsupervised learning* (fleskibel sehingga dapat digunakan padanya) serta penggunaan jarak dimaksudkan untuk dataset yang memiliki fitur [*binary*](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html#sklearn.neighbors.DistanceMetric). Cara kerja algoritma adalah dengan menemukan jumlah beberapa *neighbors* terdekat dari suatu titik baru untuk kemudian menentukan termasuk dari kelompok mana titik tersebut. [<sup>4</sup>](https://scikit-learn.org/stable/modules/neighbors.html#unsupervised-neighbors)
     
@@ -51,7 +51,7 @@ Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
     <img width="450" height="450" src="https://user-images.githubusercontent.com/59215827/138034566-e1a80635-6d65-46f8-963b-6f53d1627840.png"><br>
     <sup><sub><a href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa"><i>image source</i></a></sub></sup>
     
-    Penjelasan sama dengan sebelumnya. Adapun untuk jarak Dice seperti pada gambar di atas memiliki kesamaan terhadap jarak Jaccard didalam menghitung persamaan dan perbedaan pada suatu sampel set. Namun, jarak Dice mengalikan dua anggota yang beririsan dan membaginya dengan hasil tambah dua set (bukan gabungan). [<sup>6</sup>](https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa) Meskipun baik dalam hal memberikan bobot pada *outliers* serta sensitivitas baik pada data dengan ragam banyak dibandingkan jarak [Euclidian](https://www.sciencedirect.com/topics/mathematics/euclidean-distance). Akan tetapi jarak Dice tidak memenuhi persyaratan [*triangle inequality*](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.1334&rep=rep1&type=pdf).
+    Penjelasan tentang Nearest Neighbors sebagaimana pada poin sebelumnya. Adapun untuk jarak Dice seperti pada gambar di atas memiliki kesamaan terhadap jarak Jaccard didalam menghitung persamaan dan perbedaan pada suatu sampel set. Namun, jarak Dice mengalikan dua anggota yang beririsan dan membaginya dengan hasil tambah dua set (bukan gabungan). [<sup>6</sup>](https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa) Meskipun baik dalam hal memberikan bobot pada *outliers* serta sensitivitas baik pada data dengan ragam banyak dibandingkan jarak [Euclidian](https://www.sciencedirect.com/topics/mathematics/euclidean-distance). Akan tetapi jarak Dice tidak memenuhi persyaratan [*triangle inequality*](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.1334&rep=rep1&type=pdf).
     
   * Algoritma `Cosine Similarity`.
     
@@ -128,6 +128,8 @@ No | Fitur | Rincian
 ![image](https://user-images.githubusercontent.com/59215827/138042187-88a0790a-2231-40f9-8614-b80a580d7796.png)
 ![image](https://user-images.githubusercontent.com/59215827/138042231-6a29b375-5509-4077-9b06-53c8f1941217.png)
 
+---
+
 ## Data Preparation
 Bagian ini terbagi menjadi dua yaitu *`data preprocessing`* dan *`data wrangling`*:
 ### ***Data Preprocessing***
@@ -151,7 +153,7 @@ Proses *preparation* yang dilakukan langsung setelah data mentah diambil sebelum
 
 * Membuat fitur *MONTH*
 
-  Untuk menambahkan informasi agar lebih memperkuat hasil sistem rekomendasi, maka diambil dari fitur *FIRST APPERANCE* informasi berupa bulan yang pertama kali sang superhero muncul pada komik. Kemudian dilakukan proses penyamaan format nama pada fitur *MONTH* ini. Terakhir pada informasi yang tidak sesuai (seperti hanya berisi tahun) akan dihilangkan baris berdasarkan hal ini dengan alasan tidak dapat dilakukan apapun dan jumlahnya yang tidak begitu besar.
+  Untuk menambahkan informasi agar lebih memperkuat hasil sistem rekomendasi, maka diambil dari fitur *FIRST APPERANCE* informasi berupa bulan yang pertama kali sang superhero muncul pada komik. Kemudian dilakukan proses penyamaan format nama pada fitur *MONTH* ini. Terakhir pada informasi yang tidak sesuai (seperti hanya berisi tahun) akan dihilangkan baris berdasarkan hal ini dengan alasan tidak dapat dilakukan apapun dan jumlahnya yang tidak begitu besar (`freq <1000`).
   
 * *Formatting* kategori fitur
   Langkah terakhir pada *preprocessing* adalah memperbaiki kelas dari fitur *categorical* lainnya agar lebih rapi dan sesuai untuk diinterpretasikan sistem yaitu:
@@ -163,17 +165,34 @@ Proses *preparation* yang dilakukan langsung setelah data mentah diambil sebelum
 
 ### ***Data Wrangling***
 Proses *preparation* yang dilakukan setelah dataset dilakukan proses *exploratory* untuk menyesuaikan agar dapat membuat sistem rekomendasi yang baik.
-Pada bagian ini Anda menjelaskan teknik yang digunakan pada tahapan Data Preparation. 
-- Terapkan minimal satu teknik data preparation dan jelaskan proses yang dilakukan.
-- Jelaskan juga alasan mengapa Anda perlu menerapkan teknik tersebut pada tahap Data Preparation. 
+* *Discretize* fitur *APPEARANCES*
+
+  Proses mengubah fitur *continuous* ke dalam bentuk *categorical* yang dilakukan untuk memenuhi kebutuhan penggunaan algoritma berbasis jarak (semua fitur dalam bentuk *binary*). Pada fitur *`APPEARANCES`* proses ini dilakukan dengan tetap mempertahankan jumlah di bawah tiga puluh. Adapun jumlah di atas batas tersebut akan dilakukan proses [*binning*](https://towardsdatascience.com/data-preprocessing-with-python-pandas-part-5-binning-c5bd5fd1b950) yaitu menjadikan fitur ke dalam suatu interval dikarenakan frekuensi yang cukup sedikit.
+  
+* *Discretize* fitur *YEAR*
+
+  Proses yang sama seperti pada fitur *APPEARANCES* sebelumnya. Namun pada fitur *`YEAR`* ini dilakukan proses ***binning*** terhadap keseluruhan default data dengan interval tahun sekitar lima (ada lebih dari sepuluh pada data terlampau lama dan juga yang memiliki frekuensi sedikit di lima belas tahun belakang).
+  
+* *One-hot* seluruh fitur
+  
+  Menjadikan seluruh fitur ke dalam *categorical* tidaklah cukup guna menggunakan beberapa jarak yang ada pada algoritma sebagaimana telah disampaikan pada bagian ***Solution Approach*** sebelumnya. Sehingga keseluruhan fitur tersebut perlu dikonversi ke dalam bentuk *binary* dengan menerapkan metode [*one-hot encoding*](https://machinelearningmastery.com/how-to-one-hot-encode-sequence-data-in-python/#:~:text=A%20one%20hot%20encoding%20is,is%20marked%20with%20a%201.) yang dapat mengeluarkan setiap kelas yang terdapat pada setiap fitur menjadi suatu fitur baru yang dilambangkan dengan *True* atau *False* (*binary*).
+
+---
 
 ## Modeling
-Tahapan ini membahas mengenai **pembuatan model sistem rekomendasi** untuk menyelesaikan permasalahan dan **menyajikan top-N recommendation sebagai solusi.**
+Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem rekomendasi content based filtering.
 
-Untuk menjelaskan mengenai bagian ini, Anda dapat mengikuti panduan: 
-- Jelaskan bagaimana Anda melakukan proses modeling dalam proyek. 
-- Sajikan top-N recommendation sebagai output model Anda.
-- Jelaskan pula hasil rekomendasi dari model Anda.
+* Algoritma NN (jarak Jaccard)
+
+  Mengimplementasikan *library* [NearestNeighbor (sklearn)](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) dengan parameter metrik yaitu Jaccard. Selanjutnya *library* model tersebut diinisiasikan untuk kemudian dilakukan fitting terhadap dataset. Setelah itu dengan bantuan fungsi `get_recommended_heroes` akan diberikan rekomendasi terhadap beberapa superhero terbaik (dalam hal ini sebanyak 5) berdasarkan superhero yang disukai atau telah dimiliki oleh pengoleksi ***action figures*** sebagai kemungkinan superhero yang juga mungkin disukai olehnya. Adapun, hasil rekomendasinya adalah:
+  
+* Algoritma NN (jarak Dice)
+
+  Pendekatan yang sama seperti pada algoritma pada poin sebelumnya, hanya saja dengan menerapkan parameter metrik yaitu Dice. Adapun, hasil rekomendasinya adalah:
+  
+* Algoritma Cosine Similarity
+
+  Proses dengan algoritma ini juga masih menggunakan fungsi bantuan yang sama (`get_recommended_heroes`). Akan tetapi selain dengan tidak digunakannya model, juga dataset perlu dilakukan proses penghitungan Cosine Similarity terlebih dahulu untuk kemudian mendapatkan hasil rekomendasi dengan bantuan fungsi tersebut. Adapun, hasil rekomendasinya adalah:
 
 ## Evaluation
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
