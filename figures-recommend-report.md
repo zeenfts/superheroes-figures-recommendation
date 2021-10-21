@@ -36,7 +36,7 @@ Berikut merupakan tujuan dibuatnya proyek ini:
 ### Solution approach
 Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
 - Memilih sistem rekomendasi [*content-based filtering*](https://codeburst.io/explanation-of-recommender-systems-in-information-retrieval-13077e1d916c) yang memiliki kesesuaian dengan dataset dimana tidak harus memerlukan adanya informasi dari sang pengoleksi *action figures*. Kemudian sebelum dilakukan pembuatan sistem rekomendasi, dataset akan dilakukan proses *preparation* terlebih dahulu dan setelahnya akan ditampilkan hasil rekomendasi yang ada (jika memungkinkan juga akan dievaluasi seberapa baik hasil rekomendasi tersebut).
-- Memilih tdua algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
+- Memilih dua algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
   * Algoritma `Nearest Neighbors (NN)` yang menerapkan jarak **Jaccard**. 
     
     Algoritma ini dipilih mengingat kesederhanaan dalam penggunaan, kemudian karena permasalahan berkaitan dengan *unsupervised learning* (fleskibel sehingga dapat digunakan padanya) serta penggunaan jarak dimaksudkan untuk dataset yang memiliki fitur [*binary*](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html#sklearn.neighbors.DistanceMetric). Cara kerja algoritma adalah dengan menemukan jumlah beberapa *neighbors* terdekat dari suatu titik baru untuk kemudian menentukan termasuk dari kelompok mana titik tersebut. [<sup>4</sup>](https://scikit-learn.org/stable/modules/neighbors.html#unsupervised-neighbors)
