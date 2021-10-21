@@ -135,12 +135,12 @@ Proses *preparation* yang dilakukan langsung setelah data mentah diambil sebelum
   
   Untuk memudahkan didalam pembuatan sistem rekomendasi, maka kedua dataset tersebut digabungkan menjadi satu dengan melakukan proses *concat* berdasarkan baris (tentu setelah dipastikan bahwa fitur-fitur yang ada terutama penamaan adalah sama.
   
-* Menangani Nan Values pada dataset
+* Menangani NaN Values pada dataset
 ![image](https://user-images.githubusercontent.com/59215827/138044521-e13ccde8-3c24-4005-b91e-b5a884bd4f0a.png)
 
   Sebagaimana ditunjukkan pada gambar di atas bahwa terdapat beberapa fitur yang memiliki Nan values padanya. Untuk itu dilakukan beberapa cara didalam menangani Nan values tersebut:
   
-  * *Drop* fitur: Proses dengan menghilangkan fitur akibat terlalu banyaknya nilai Nan seperti yang terdapat pada *GSM* yang jika dilakukan proses lainnya dapat mengakibatkan distorsi pada data (dengan alasan lain juga bersamaan dengan fitur *page_id* dan *urlslug* dihilangkan karena tidak memberikan informasi yang dibutuhkan oleh sistem rekomendasi).
+  * *Drop* fitur: Proses dengan menghilangkan fitur akibat terlalu banyaknya nilai NaN seperti yang terdapat pada *GSM* yang jika dilakukan proses lainnya dapat mengakibatkan distorsi pada data (dengan alasan lain juga bersamaan dengan fitur *page_id* dan *urlslug* dihilangkan karena tidak memberikan informasi yang dibutuhkan oleh sistem rekomendasi).
   * *Drop* baris pada fitur: Proses ini dilakukan terhadap fitur *APPEARANCES*, *FIRST APPEARANCE*, *YEAR*, dan *ALIVE* dimana penghapusan baris berdasarkan nilai Nan yang terdeteksi pada keempat fitur tersebut dikarenakan tidak memungkinkannya dilakukan pengisian (*impute*) dengan nilai baru (dapat mengakibatkan salah interpretasi) serta jumlah yang tidak terlalu banyak didalam mempengaruhi keseluruhan data.
   * *Impute* dengan kategori *others*: Pada fitur-fitur tersisa dilakukan pengisian dengan nilai *others* yang menunjukkan bahwa itu adalah kategori lain.
 
@@ -175,14 +175,14 @@ Proses *preparation* yang dilakukan setelah dataset dilakukan proses *explorator
 ## Modeling
 Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem rekomendasi content based filtering dengan mengajukan karakter yang diambil dari masing-masing *origins* yaitu DC dan Marvel.
 
-* Algoritma NN (jarak Jaccard)
+* Algoritma **Nearest Neighbors (NN) - jarak Jaccard**
 
-  Mengimplementasikan *library* [NearestNeighbor (sklearn)](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) dengan parameter metrik yaitu Jaccard. Selanjutnya *library* model tersebut diinisiasikan untuk kemudian dilakukan fitting terhadap dataset. Setelah itu dengan bantuan fungsi `get_recommended_heroes` akan diberikan rekomendasi terhadap beberapa superhero terbaik (dalam hal ini sebanyak 5) berdasarkan superhero yang disukai atau telah dimiliki oleh pengoleksi ***action figures*** sebagai kemungkinan superhero yang juga mungkin disukai olehnya. Adapun, hasil rekomendasinya adalah:
+  Mengimplementasikan *library* [NearestNeighbors (sklearn)](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) dengan parameter metrik yaitu Jaccard. Selanjutnya *library* model tersebut diinisiasikan untuk kemudian dilakukan fitting terhadap dataset. Setelah itu dengan bantuan fungsi `get_recommended_heroes` akan diberikan rekomendasi terhadap beberapa superhero terbaik (dalam hal ini sebanyak 5) berdasarkan superhero yang disukai atau telah dimiliki oleh pengoleksi ***action figures*** sebagai kemungkinan superhero yang juga mungkin disukai olehnya. Adapun, hasil rekomendasinya adalah:
   
-  ![image](https://user-images.githubusercontent.com/59215827/138207065-522d79eb-af75-41c4-9771-b2783fc23906.png)
+  ![image](https://user-images.githubusercontent.com/59215827/138208430-4ce0c010-8981-4dc4-8acb-d9d3311d5847.png)
   ![image](https://user-images.githubusercontent.com/59215827/138208229-0a985fec-a584-4956-b920-2d1ec4b3388f.png)
 
-* Algoritma Cosine Similarity
+* Algoritma **Cosine Similarity**
 
   Proses dengan algoritma ini juga masih menggunakan fungsi bantuan yang sama (`get_recommended_heroes`). Akan tetapi selain dengan tidak digunakannya model, juga dataset perlu dilakukan proses penghitungan Cosine Similarity terlebih dahulu untuk kemudian mendapatkan hasil rekomendasi dengan bantuan fungsi tersebut. Adapun, hasil rekomendasinya adalah:
   
@@ -192,12 +192,43 @@ Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem reko
 ---
 
 ## Evaluation
+Metrik yang digunakan dalam permasalahan ini adalah **Silhouette Coefficient**, **Calinski & Harabasz score**, dan **Davies-Bouldin score** dengan melakukan pendekatan dari setiap hasil rekomendasi algoritma (terdapat 5 hasil rekomendasi) akan diberikan label sama dengan masing-masing superhero yang menjadi acuan (Aquaman dan Captain America). Kemudian nama-nama superhero hasil rekomendasi tersebut (beserta [*ground truth*](https://towardsdatascience.com/in-ai-the-objective-is-subjective-4614795d179b) (2 superhero acuan) diikutkan juga) akan mengambil informasi terhadap fitur-fitur yang ada dari *ID* hingga *YEAR_CAT*, selanjutnya akan dihitung hasil cluster rekomendasi terhadap dua superhero acuan tadi termasuk dengan superhero rekomendasinya. Berikut penjelasan lebih lengkap terkait metrik-metrik tersebut yang kemudian ditampilkan hasil performa setelahnya:
+
+### Silhouette Coefficient
+Pada kasus *unsupervised learning*, proses evaluasi dilakukan dengan model/algoritma yang ada. Metrik ini memiliki rentang skor dari -1 (menunjukkan salah *cluster*) hingga satu 1 (hasil *cluster* sangat baik), sedangkan nilai di sekitar 0 menunjukkan adanya *cluster* yang saling tumpang tindih [<sup>8</sup>](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score). Silhouette [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) didefinisikan untuk setiap sampel dan terdiri dari dua skor:
+
+a: Jarak rata-rata antara sampel dan semua titik lain di kelas yang sama.
+
+b: Jarak rata-rata antara sampel dan semua titik lain di cluster terdekat berikutnya.
+
+Kemudian persamaan Silhouette Coefficient (s) untuk sampel tunggal adalah:
+
+![image](https://user-images.githubusercontent.com/59215827/138210924-f178c2ce-6b5b-4d60-8bfe-2165d1b33fe6.png)
+
+Kelebihan | Kekurangan
+-- | --
+Rentang skor yang ada memberikan penilaian jelas terhadap hasil *cluster* (terutama jika terpisah dengan baik maka skor akan semaki tinggi)| Skor lebih besar terhadap *convex cluster* dibandingkan tipe *cluster* lain seperti *density cluster* pada DBSCAN 
+
+### Calinski & Harabasz score
+
+### Davies-Bouldin score
+
+### Hasil Performa
+* Algoritma **NN - Jaccard**
+
+  ![image](https://user-images.githubusercontent.com/59215827/138209796-f7095609-77ab-4c52-8a16-60a3889f35b1.png)
+
+* Algoritma **Cosine Similarity**
+
+  ![image](https://user-images.githubusercontent.com/59215827/138209830-5119328f-8706-4cf1-b208-53e41791e2c2.png)
+
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
 - Penjelasan mengenai metrik yang digunakan dan bagaimana formulanya
 - Kelebihan dan kekurangan metrik
 - Bagaimana cara menerapkannya ke dalam kode.
 
 ---
+<sub><sup>8. Sharadarao. (2020). geeksforgeeks: Cosine Similarity.</sup></sub>
 
 ## Kesimpulan
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
