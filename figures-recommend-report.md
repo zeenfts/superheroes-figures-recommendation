@@ -210,7 +210,7 @@ Rentang skor yang ada memberikan penilaian jelas terhadap hasil *cluster* (terut
 ### Calinski & Harabasz score
 Memiliki nama lain Variance Ratio Criterion. Metrik ini menunjukkan jika skor semakin tinggi maka *cluster* memiliki data poin padat sangat baik serta terpisahkan dengan sangat jelas (*boundary*nya). [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (s) ini adalah:
 
-![image](https://user-images.githubusercontent.com/59215827/138217112-43594144-fd95-449b-85fe-7ff47226b136.png)
+![image](https://user-images.githubusercontent.com/59215827/138217112-43594144-fd95-449b-85fe-7ff47226b136.png)<br>
 ![image](https://user-images.githubusercontent.com/59215827/138216332-85a6eb62-a077-4d1d-b479-b234b20d2ca7.png)
 
 Kelebihan | Kekurangan
@@ -221,7 +221,7 @@ Prose penghitungan yang sangat cepat |
 ### Davies-Bouldin score
 Metrik ini menunjukkan kesamaan rata-rata antara *cluster* yang didapatkan dengan membandingkan jarak antara *cluster* dengan ukuran dari *cluster* tersebut. Skor yang semakin mendekati 0 menandakan *cluster* terpisah dengan sangat jelas. [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (DB) ini adalah:
 
-![image](https://user-images.githubusercontent.com/59215827/138217268-9f5718e9-f21b-499b-9ade-a09f0602c13b.png)
+![image](https://user-images.githubusercontent.com/59215827/138217268-9f5718e9-f21b-499b-9ade-a09f0602c13b.png)<br>
 ![image](https://user-images.githubusercontent.com/59215827/138217051-48d5325d-7dfa-4035-b7e2-deb7c1fd015f.png)
 
 Kelebihan | Kekurangan
@@ -231,12 +231,22 @@ Metrik hanya menghitung berdasarkan jumlah dan fitur yang terdapat pada dataset 
 
 ### Hasil Performa
 * Algoritma **NN - Jaccard**
+  * Aquaman
+ 
+    ![image](https://user-images.githubusercontent.com/59215827/138233009-1a781a77-0c77-4826-bcc8-0707fd2bf943.png)
 
-  ![image](https://user-images.githubusercontent.com/59215827/138209796-f7095609-77ab-4c52-8a16-60a3889f35b1.png)
+  * Captain America
+    
+    ![image](https://user-images.githubusercontent.com/59215827/138233068-73104b14-1e9a-49aa-bad3-0bfff431872c.png)
 
 * Algoritma **Cosine Similarity**
+  * Aquaman
+ 
+    ![image](https://user-images.githubusercontent.com/59215827/138233159-7dae1428-0424-4b3a-8462-10a0ddf812b2.png)
 
-  ![image](https://user-images.githubusercontent.com/59215827/138209830-5119328f-8706-4cf1-b208-53e41791e2c2.png)
+  * Captain America
+    
+    ![image](https://user-images.githubusercontent.com/59215827/138233213-426819d1-1101-4d6a-941b-a097b3ed3c83.png)
 
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
 - Penjelasan mengenai metrik yang digunakan dan bagaimana formulanya
