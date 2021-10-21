@@ -195,13 +195,11 @@ Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem reko
 Metrik yang digunakan dalam permasalahan ini adalah **Silhouette Coefficient**, **Calinski & Harabasz score**, dan **Davies-Bouldin score** dengan melakukan pendekatan dari setiap hasil rekomendasi algoritma (terdapat 5 hasil rekomendasi) akan diberikan label sama dengan masing-masing superhero yang menjadi acuan (Aquaman dan Captain America). Kemudian nama-nama superhero hasil rekomendasi tersebut (beserta [*ground truth*](https://towardsdatascience.com/in-ai-the-objective-is-subjective-4614795d179b) (2 superhero acuan) diikutkan juga) akan mengambil informasi terhadap fitur-fitur yang ada dari *ID* hingga *YEAR_CAT*, selanjutnya akan dihitung hasil cluster rekomendasi terhadap dua superhero acuan tadi termasuk dengan superhero rekomendasinya. Berikut penjelasan lebih lengkap terkait metrik-metrik tersebut yang kemudian ditampilkan hasil performa setelahnya:
 
 ### Silhouette Coefficient
-Pada kasus *unsupervised learning*, proses evaluasi dilakukan dengan model/algoritma yang ada. Metrik ini memiliki rentang skor dari -1 (menunjukkan salah *cluster*) hingga satu 1 (hasil *cluster* sangat baik), sedangkan nilai di sekitar 0 menunjukkan adanya *cluster* yang saling tumpang tindih [<sup>8</sup>](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score). Silhouette [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) didefinisikan untuk setiap sampel dan terdiri dari dua skor:
+Pada kasus *unsupervised learning*, proses evaluasi dilakukan dengan model/algoritma yang ada. Metrik ini memiliki rentang skor dari -1 (menunjukkan salah *cluster*) hingga satu 1 (hasil *cluster* sangat baik), sedangkan nilai di sekitar 0 menunjukkan adanya *cluster* yang saling tumpang tindih. [<sup>8</sup>](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score) Persamaan Silhouette (s) [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) didefinisikan untuk setiap sampel dan terdiri dari dua skor untuk sampel tunggal adalah:
 
 a: Jarak rata-rata antara sampel dan semua titik lain di kelas yang sama.
 
 b: Jarak rata-rata antara sampel dan semua titik lain di cluster terdekat berikutnya.
-
-Kemudian persamaan Silhouette Coefficient (s) untuk sampel tunggal adalah:
 
 ![image](https://user-images.githubusercontent.com/59215827/138210924-f178c2ce-6b5b-4d60-8bfe-2165d1b33fe6.png)
 
@@ -210,8 +208,21 @@ Kelebihan | Kekurangan
 Rentang skor yang ada memberikan penilaian jelas terhadap hasil *cluster* (terutama jika terpisah dengan baik maka skor akan semaki tinggi)| Skor lebih besar terhadap *convex cluster* dibandingkan tipe *cluster* lain seperti *density cluster* pada DBSCAN 
 
 ### Calinski & Harabasz score
+Memiliki nama lain Variance Ratio Criterion. Metrik ini menunjukkan jika skor semakin tinggi maka *cluster* memiliki data poin padat sangat baik serta terpisahkan dengan sangat jelas (*boundary*nya). [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (s) ini adalah:
+
+![image](https://user-images.githubusercontent.com/59215827/138217112-43594144-fd95-449b-85fe-7ff47226b136.png)
+![image](https://user-images.githubusercontent.com/59215827/138216332-85a6eb62-a077-4d1d-b479-b234b20d2ca7.png)
+
+Kelebihan | Kekurangan
+-- | --
+Skor yang dihasilkan menunjukkan dengan jelas kualitas *cluster* | Sama dengan kekurangan pada metrik Silhouette sebelumnya
+Prose penghitungan yang sangat cepat |
 
 ### Davies-Bouldin score
+Metrik ini menunjukkan kesamaan rata-rata antara *cluster* yang didapatkan dengan membandingkan jarak antara *cluster* dengan ukuran dari *cluster* tersebut. Skor yang semakin mendekati 0 menandakan *cluster* terpisah dengan sangat jelas. [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (DB) ini adalah:
+
+![image](https://user-images.githubusercontent.com/59215827/138217268-9f5718e9-f21b-499b-9ade-a09f0602c13b.png)
+![image](https://user-images.githubusercontent.com/59215827/138217051-48d5325d-7dfa-4035-b7e2-deb7c1fd015f.png)
 
 ### Hasil Performa
 * Algoritma **NN - Jaccard**
@@ -228,7 +239,8 @@ Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur ki
 - Bagaimana cara menerapkannya ke dalam kode.
 
 ---
-<sub><sup>8. Sharadarao. (2020). geeksforgeeks: Cosine Similarity.</sup></sub>
+<sub><sup>8. Sklearn. (2021). "sklearn.metrics.silhouette_score".</sup></sub><br>
+<sub><sup>9. Sklearn. (2021). "2.3. Clustering".</sup></sub>
 
 ## Kesimpulan
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
