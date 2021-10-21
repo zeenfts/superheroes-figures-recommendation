@@ -257,7 +257,7 @@ Metrik hanya menghitung berdasarkan jumlah dan fitur yang terdapat pada dataset 
 
 Hasil keseluruhan terhadap evaluasi algoritma menunjukkan,
 1. Berdasarkan metrik Silhouette dari masing-masing performa di atas mendekati nilai 0 yang menandakan adanya tumpang tindih pada ***cluster*** (atau dapat disebut sebagai `data poin` dengan `labelnya` berupa nama superhero). Hal ini menunjukkan bahwa hasil rekomendasi telah berada pada keadaan yang persis atau tingkat kesamaan tinggi.
-2. Berdasarkan metrik Calinski & Harabasz dari masing-masing performa di atas menunjukkan nilai yang kecil dan menandakan kurang terpisah atau jelasnya batas antara label tadi. Hal ini juga menunjukkan hasil bagus bahwa rekomendasi memiliki tingkat kesamaan yang tinggi satu sama lainnya.
+2. Berdasarkan metrik Calinski & Harabasz dari masing-masing performa di atas menunjukkan nilai yang kecil (hanya pada 1. sekian (tidak ada batas maksimum nilai metrik ini)) dan menandakan kurang terpisah atau jelasnya batas antara label tadi. Hal ini juga menunjukkan hasil bagus bahwa rekomendasi memiliki tingkat kesamaan yang tinggi satu sama lainnya.
 3. Berdasarkan metrik Davies-Bouldin dari masing-masing performa di atas juga menunjukkan nilai cenderung besar (bisa saja nilai terendah ada pada 0.00001 atau kurang). Hal ini juga menunjukkan label tidak begitu terpisah dengan baik atau dengan kata lain memiliki kemiripan (tingkat kesamaan yang tinggi).
 
 ---
