@@ -160,7 +160,7 @@ Proses *preparation* yang dilakukan langsung setelah data mentah diambil sebelum
 Proses *preparation* yang dilakukan setelah dataset dilakukan proses *exploratory* untuk menyesuaikan agar dapat membuat sistem rekomendasi yang baik.
 * *Discretize* fitur *APPEARANCES*
 
-  Proses mengubah fitur *continuous* ke dalam bentuk *categorical* yang dilakukan untuk memenuhi kebutuhan penggunaan algoritma berbasis jarak (semua fitur dalam bentuk *binary*). Pada fitur *`APPEARANCES`* proses ini dilakukan dengan tetap mempertahankan jumlah di bawah tiga puluh. Adapun jumlah di atas batas tersebut akan dilakukan proses [*binning*](https://towardsdatascience.com/data-preprocessing-with-python-pandas-part-5-binning-c5bd5fd1b950) yaitu menjadikan fitur ke dalam suatu interval dikarenakan frekuensi yang cukup sedikit.
+  Proses mengubah fitur *continuous* ke dalam bentuk *categorical* yang dilakukan untuk memenuhi kebutuhan penggunaan algoritma berbasis jarak (semua fitur dalam bentuk *binary*). Pada fitur *`APPEARANCES`* proses ini dilakukan dengan tetap mempertahankan jumlah di bawah tiga puluh ([*inclusive*](https://www.merriam-webster.com/dictionary/inclusive#:~:text=Definition%20of%20inclusive%201%20a%20%3A%20broad%20in,of%20all%20humankind%2C%20not%20just%20an%20elite%20few.)). Adapun jumlah di atas batas tersebut akan dilakukan proses [*binning*](https://towardsdatascience.com/data-preprocessing-with-python-pandas-part-5-binning-c5bd5fd1b950) yaitu menjadikan fitur ke dalam suatu interval dikarenakan frekuensi yang cukup sedikit.
   
 * *Discretize* fitur *YEAR*
 
