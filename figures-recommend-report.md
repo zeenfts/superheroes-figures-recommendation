@@ -224,6 +224,11 @@ Metrik ini menunjukkan kesamaan rata-rata antara *cluster* yang didapatkan denga
 ![image](https://user-images.githubusercontent.com/59215827/138217268-9f5718e9-f21b-499b-9ade-a09f0602c13b.png)
 ![image](https://user-images.githubusercontent.com/59215827/138217051-48d5325d-7dfa-4035-b7e2-deb7c1fd015f.png)
 
+Kelebihan | Kekurangan
+-- | --
+Perhitungan lebih sederhana dibandingkan metrik Silhouette | Sama dengan kekurangan pada metrik Silhouette sebelumnya
+Metrik hanya menghitung berdasarkan jumlah dan fitur yang terdapat pada dataset | Implementasi *centroid* menyebabkan jarak hanya dapat diukur dengan Euclidian
+
 ### Hasil Performa
 * Algoritma **NN - Jaccard**
 
