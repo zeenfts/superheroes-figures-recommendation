@@ -44,14 +44,7 @@ Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
     <img width="450" height="450" src="https://user-images.githubusercontent.com/59215827/138034285-7088c8b9-5700-4749-a337-463e140a6133.png"><br>
     <sup><sub><a href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa"><i>image source</i></a></sub></sup>
     
-    Sedangkan jarak Jaccard sebagaimana pada gambar di atas, membandingkan anggota pada dua set untuk melihat anggota yang terbagi atau yang terdapat perbedaan. Jarak ini memiliki rentang dari 0% hingga 100% dengan semakin tinggi persentasenya, maka semakin mirip kedua populasi tersebut. Meskipun mudah diinterpretasikan, namun penggunaan jarak ini sangat sensitif terhadap ukuran sampel kecil dan dapat memberikan hasil yang salah, terutama pada sampel sangat kecil atau kumpulan data dengan pengamatan yang hilang. [<sup>5</sup>](https://www.statisticshowto.com/jaccard-index/)
-    
-  * Algoritma `Nearest Neighbors` yang menerapkan jarak **Dice**.
-
-    <img width="450" height="450" src="https://user-images.githubusercontent.com/59215827/138034566-e1a80635-6d65-46f8-963b-6f53d1627840.png"><br>
-    <sup><sub><a href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa"><i>image source</i></a></sub></sup>
-    
-    Penjelasan tentang Nearest Neighbors sebagaimana pada poin sebelumnya. Adapun untuk jarak Dice seperti pada gambar di atas memiliki kesamaan terhadap jarak Jaccard didalam menghitung persamaan dan perbedaan pada suatu sampel set. Namun, jarak Dice mengalikan dua anggota yang beririsan dan membaginya dengan hasil tambah dua set (bukan gabungan). [<sup>6</sup>](https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa) Meskipun baik dalam hal memberikan bobot pada *outliers* serta sensitivitas baik pada data dengan ragam banyak dibandingkan jarak [Euclidian](https://www.sciencedirect.com/topics/mathematics/euclidean-distance). Akan tetapi jarak Dice tidak memenuhi persyaratan [*triangle inequality*](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.9.1334&rep=rep1&type=pdf).
+    Sedangkan jarak Jaccard sebagaimana pada gambar di atas, membandingkan anggota pada dua set untuk melihat anggota yang terbagi atau yang terdapat perbedaan. Jarak ini memiliki rentang dari 0% hingga 100% dengan semakin tinggi persentasenya, maka semakin mirip kedua populasi tersebut. Meskipun mudah diinterpretasikan, namun penggunaan jarak ini sangat sensitif terhadap ukuran sampel kecil dan dapat memberikan hasil yang salah, terutama pada sampel sangat kecil atau kumpulan data dengan pengamatan yang hilang. [<sup>5</sup>](https://www.statisticshowto.com/jaccard-index/) Cara kerja jarak Jaccard adalah dengan mendapatkan dua anggota yang beririsan dan membaginya dengan gabungan dari dua anggota tersebut. [<sup>6</sup>](https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa)
     
   * Algoritma `Cosine Similarity`.
     
@@ -62,8 +55,8 @@ Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
 
 ---
 <sub><sup>4. sklearn. (2021). "1.6. Nearest Neighbors".</sup></sub><br>
-<sub><sup>5. Stephanie. (2016). statisticshowto: Jaccard Index / Similarity Coefficient.</sup></sub>
-<sub><sup>6. Maarten Grootendorst. (2021). towardsdatascience: 9 Distance Measures in Data Science.</sup></sub>
+<sub><sup>5. Stephanie. (2016). statisticshowto: Jaccard Index / Similarity Coefficient.</sup></sub><br>
+<sub><sup>6. Maarten Grootendorst. (2021). towardsdatascience: 9 Distance Measures in Data Science.</sup></sub><br>
 <sub><sup>7. Sharadarao. (2020). geeksforgeeks: Cosine Similarity.</sup></sub>
 
 ## Data Understanding
@@ -180,19 +173,21 @@ Proses *preparation* yang dilakukan setelah dataset dilakukan proses *explorator
 ---
 
 ## Modeling
-Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem rekomendasi content based filtering.
+Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem rekomendasi content based filtering dengan mengajukan karakter yang diambil dari masing-masing *origins* yaitu DC dan Marvel.
 
 * Algoritma NN (jarak Jaccard)
 
   Mengimplementasikan *library* [NearestNeighbor (sklearn)](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) dengan parameter metrik yaitu Jaccard. Selanjutnya *library* model tersebut diinisiasikan untuk kemudian dilakukan fitting terhadap dataset. Setelah itu dengan bantuan fungsi `get_recommended_heroes` akan diberikan rekomendasi terhadap beberapa superhero terbaik (dalam hal ini sebanyak 5) berdasarkan superhero yang disukai atau telah dimiliki oleh pengoleksi ***action figures*** sebagai kemungkinan superhero yang juga mungkin disukai olehnya. Adapun, hasil rekomendasinya adalah:
   
-* Algoritma NN (jarak Dice)
+  ![image](https://user-images.githubusercontent.com/59215827/138207065-522d79eb-af75-41c4-9771-b2783fc23906.png)
+  ![Uploading image.png…]()
 
-  Pendekatan yang sama seperti pada algoritma pada poin sebelumnya, hanya saja dengan menerapkan parameter metrik yaitu Dice. Adapun, hasil rekomendasinya adalah:
-  
 * Algoritma Cosine Similarity
 
   Proses dengan algoritma ini juga masih menggunakan fungsi bantuan yang sama (`get_recommended_heroes`). Akan tetapi selain dengan tidak digunakannya model, juga dataset perlu dilakukan proses penghitungan Cosine Similarity terlebih dahulu untuk kemudian mendapatkan hasil rekomendasi dengan bantuan fungsi tersebut. Adapun, hasil rekomendasinya adalah:
+  
+  ![Uploading image.png…]()
+  ![Uploading image.png…]()
 
 ## Evaluation
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
