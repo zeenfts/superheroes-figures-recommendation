@@ -180,14 +180,16 @@ Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem reko
   Mengimplementasikan *library* [NearestNeighbor (sklearn)](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) dengan parameter metrik yaitu Jaccard. Selanjutnya *library* model tersebut diinisiasikan untuk kemudian dilakukan fitting terhadap dataset. Setelah itu dengan bantuan fungsi `get_recommended_heroes` akan diberikan rekomendasi terhadap beberapa superhero terbaik (dalam hal ini sebanyak 5) berdasarkan superhero yang disukai atau telah dimiliki oleh pengoleksi ***action figures*** sebagai kemungkinan superhero yang juga mungkin disukai olehnya. Adapun, hasil rekomendasinya adalah:
   
   ![image](https://user-images.githubusercontent.com/59215827/138207065-522d79eb-af75-41c4-9771-b2783fc23906.png)
-  ![Uploading image.png…]()
+  ![image](https://user-images.githubusercontent.com/59215827/138208229-0a985fec-a584-4956-b920-2d1ec4b3388f.png)
 
 * Algoritma Cosine Similarity
 
   Proses dengan algoritma ini juga masih menggunakan fungsi bantuan yang sama (`get_recommended_heroes`). Akan tetapi selain dengan tidak digunakannya model, juga dataset perlu dilakukan proses penghitungan Cosine Similarity terlebih dahulu untuk kemudian mendapatkan hasil rekomendasi dengan bantuan fungsi tersebut. Adapun, hasil rekomendasinya adalah:
   
-  ![Uploading image.png…]()
-  ![Uploading image.png…]()
+  ![image](https://user-images.githubusercontent.com/59215827/138208149-8bcea7ef-b6b6-42bc-8214-11f606397289.png)
+  ![image](https://user-images.githubusercontent.com/59215827/138208185-5f0834c1-de15-4bd8-9e89-ab4c092798ff.png)
+
+---
 
 ## Evaluation
 Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
@@ -195,7 +197,12 @@ Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur ki
 - Kelebihan dan kekurangan metrik
 - Bagaimana cara menerapkannya ke dalam kode.
 
-> **Ini adalah bagian akhir laporan**
+---
 
-_Catatan:_
-_Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/) atau [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/). Semangat!_
+## Kesimpulan
+Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
+- Penjelasan mengenai metrik yang digunakan dan bagaimana formulanya
+- Kelebihan dan kekurangan metrik
+- Bagaimana cara menerapkannya ke dalam kode.
+
+> **Ini adalah bagian akhir laporan**
