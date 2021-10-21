@@ -36,7 +36,7 @@ Berikut merupakan tujuan dibuatnya proyek ini:
 ### Solution approach
 Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
 - Memilih sistem rekomendasi [*content-based filtering*](https://codeburst.io/explanation-of-recommender-systems-in-information-retrieval-13077e1d916c) yang memiliki kesesuaian dengan dataset dimana tidak harus memerlukan adanya informasi dari sang pengoleksi *action figures*. Kemudian sebelum dilakukan pembuatan sistem rekomendasi, dataset akan dilakukan proses *preparation* terlebih dahulu dan setelahnya akan ditampilkan hasil rekomendasi yang ada (jika memungkinkan juga akan dievaluasi seberapa baik hasil rekomendasi tersebut).
-- Memilih tiga algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
+- Memilih tdua algoritma yang diajukan dalam sistem rekomendasi tersebut, yaitu:
   * Algoritma `Nearest Neighbors (NN)` yang menerapkan jarak **Jaccard**. 
     
     Algoritma ini dipilih mengingat kesederhanaan dalam penggunaan, kemudian karena permasalahan berkaitan dengan *unsupervised learning* (fleskibel sehingga dapat digunakan padanya) serta penggunaan jarak dimaksudkan untuk dataset yang memiliki fitur [*binary*](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.DistanceMetric.html#sklearn.neighbors.DistanceMetric). Cara kerja algoritma adalah dengan menemukan jumlah beberapa *neighbors* terdekat dari suatu titik baru untuk kemudian menentukan termasuk dari kelompok mana titik tersebut. [<sup>4</sup>](https://scikit-learn.org/stable/modules/neighbors.html#unsupervised-neighbors)
@@ -192,7 +192,11 @@ Data yang telah dilakukan *preparation* kemudian dilakukan pembuatan sistem reko
 ---
 
 ## Evaluation
-Metrik yang digunakan dalam permasalahan ini adalah **Silhouette Coefficient**, **Calinski & Harabasz score**, dan **Davies-Bouldin score** dengan melakukan pendekatan dari setiap hasil rekomendasi algoritma (terdapat 5 hasil rekomendasi) akan diberikan label sama dengan masing-masing superhero yang menjadi acuan (Aquaman dan Captain America). Kemudian nama-nama superhero hasil rekomendasi tersebut (beserta [*ground truth*](https://towardsdatascience.com/in-ai-the-objective-is-subjective-4614795d179b) (2 superhero acuan) diikutkan juga) akan mengambil informasi terhadap fitur-fitur yang ada dari *ID* hingga *YEAR_CAT*, selanjutnya akan dihitung hasil cluster rekomendasi terhadap dua superhero acuan tadi termasuk dengan superhero rekomendasinya. Berikut penjelasan lebih lengkap terkait metrik-metrik tersebut yang kemudian ditampilkan hasil performa setelahnya:
+Metrik yang digunakan dalam permasalahan ini adalah **Silhouette Coefficient**, **Calinski & Harabasz score**, dan **Davies-Bouldin score** dengan melakukan pendekatan dari setiap hasil rekomendasi algoritma (terdapat 5 hasil rekomendasi) akan diberikan label berdasarkan superhero acuan (Aquaman atau Captain America). Kemudian nama-nama superhero hasil rekomendasi tersebut (beserta [*ground truth*](https://towardsdatascience.com/in-ai-the-objective-is-subjective-4614795d179b) (2 superhero acuan) diikutkan juga) akan mengambil informasi terhadap fitur-fitur yang ada dari *ID* hingga *YEAR_CAT*, selanjutnya proses hitung dari *cluster* pada setiap hasil rekomendasi dilakukan dengan menerapkan set 1 dan set 2 seperti pada gambar di bawah yang akan memperhitungkan masing-masing metrik pada setiap *loop*. Terakhir hasil metrik dari total sepuluh *loop* tadi diambil rata-ratanya.
+
+![fold of metric cluster](https://user-images.githubusercontent.com/59215827/138242857-b3fbf335-ccee-4178-9c5d-7ea8ff14d623.png)
+
+Berikut penjelasan lebih lengkap terkait metrik-metrik tersebut yang kemudian ditampilkan hasil performa setelahnya:
 
 ### Silhouette Coefficient
 Pada kasus *unsupervised learning*, proses evaluasi dilakukan dengan model/algoritma yang ada. Metrik ini memiliki rentang skor dari -1 (menunjukkan salah *cluster*) hingga satu 1 (hasil *cluster* sangat baik), sedangkan nilai di sekitar 0 menunjukkan adanya *cluster* yang saling tumpang tindih. [<sup>8</sup>](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score) Persamaan Silhouette (s) [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) didefinisikan untuk setiap sampel dan terdiri dari dua skor untuk sampel tunggal adalah:
@@ -201,7 +205,8 @@ a: Jarak rata-rata antara sampel dan semua titik lain di kelas yang sama.
 
 b: Jarak rata-rata antara sampel dan semua titik lain di cluster terdekat berikutnya.
 
-![image](https://user-images.githubusercontent.com/59215827/138210924-f178c2ce-6b5b-4d60-8bfe-2165d1b33fe6.png)
+![image](https://user-images.githubusercontent.com/59215827/138210924-f178c2ce-6b5b-4d60-8bfe-2165d1b33fe6.png)<br>
+<sup><sub><a href="https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient"><i>image source</i></a></sub></sup>
 
 Kelebihan | Kekurangan
 -- | --
@@ -211,7 +216,8 @@ Rentang skor yang ada memberikan penilaian jelas terhadap hasil *cluster* (terut
 Memiliki nama lain Variance Ratio Criterion. Metrik ini menunjukkan jika skor semakin tinggi maka *cluster* memiliki data poin padat sangat baik serta terpisahkan dengan sangat jelas (*boundary*nya). [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (s) ini adalah:
 
 ![image](https://user-images.githubusercontent.com/59215827/138217112-43594144-fd95-449b-85fe-7ff47226b136.png)<br>
-![image](https://user-images.githubusercontent.com/59215827/138216332-85a6eb62-a077-4d1d-b479-b234b20d2ca7.png)
+![image](https://user-images.githubusercontent.com/59215827/138216332-85a6eb62-a077-4d1d-b479-b234b20d2ca7.png)<br>
+<sup><sub><a href="https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient"><i>image source</i></a></sub></sup>
 
 Kelebihan | Kekurangan
 -- | --
@@ -222,7 +228,8 @@ Prose penghitungan yang sangat cepat |
 Metrik ini menunjukkan kesamaan rata-rata antara *cluster* yang didapatkan dengan membandingkan jarak antara *cluster* dengan ukuran dari *cluster* tersebut. Skor yang semakin mendekati 0 menandakan *cluster* terpisah dengan sangat jelas. [<sup>9</sup>](https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient) Persamaan dari metrik (DB) ini adalah:
 
 ![image](https://user-images.githubusercontent.com/59215827/138217268-9f5718e9-f21b-499b-9ade-a09f0602c13b.png)<br>
-![image](https://user-images.githubusercontent.com/59215827/138217051-48d5325d-7dfa-4035-b7e2-deb7c1fd015f.png)
+![image](https://user-images.githubusercontent.com/59215827/138217051-48d5325d-7dfa-4035-b7e2-deb7c1fd015f.png)<br>
+<sup><sub><a href="https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient"><i>image source</i></a></sub></sup>
 
 Kelebihan | Kekurangan
 -- | --
@@ -248,19 +255,16 @@ Metrik hanya menghitung berdasarkan jumlah dan fitur yang terdapat pada dataset 
     
     ![image](https://user-images.githubusercontent.com/59215827/138233213-426819d1-1101-4d6a-941b-a097b3ed3c83.png)
 
-Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan dan bagaimana formulanya
-- Kelebihan dan kekurangan metrik
-- Bagaimana cara menerapkannya ke dalam kode.
+Hasil keseluruhan terhadap evaluasi algoritma menunjukkan,
+1. Berdasarkan metrik Silhouette dari masing-masing performa di atas mendekati nilai 0 yang menandakan adanya tumpang tindih pada ***cluster*** (atau dapat disebut sebagai `data poin` dengan `labelnya` berupa nama superhero). Hal ini menunjukkan bahwa hasil rekomendasi telah berada pada keadaan yang persis atau tingkat kesamaan tinggi.
+2. Berdasarkan metrik Calinski & Harabasz dari masing-masing performa di atas menunjukkan nilai yang kecil dan menandakan kurang terpisah atau jelasnya batas antara label tadi. Hal ini juga menunjukkan hasil bagus bahwa rekomendasi memiliki tingkat kesamaan yang tinggi satu sama lainnya.
+3. Berdasarkan metrik Davies-Bouldin dari masing-masing performa di atas juga menunjukkan nilai cenderung besar (bisa saja nilai terendah ada pada 0.00001 atau kurang). Hal ini juga menunjukkan label tidak begitu terpisah dengan baik atau dengan kata lain memiliki kemiripan (tingkat kesamaan yang tinggi).
 
 ---
 <sub><sup>8. Sklearn. (2021). "sklearn.metrics.silhouette_score".</sup></sub><br>
 <sub><sup>9. Sklearn. (2021). "2.3. Clustering".</sup></sub>
 
 ## Kesimpulan
-Bagian ini menjelaskan mengenai metrik evaluasi yang digunakan untuk mengukur kinerja model.  Penjelasannya meliputi (namun tidak terbatas pada) beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan dan bagaimana formulanya
-- Kelebihan dan kekurangan metrik
-- Bagaimana cara menerapkannya ke dalam kode.
+Algoritma yang digunakan pada sistem rekomendasi superhero (*`content-based filtering`*) telah menunjukkan hasil yang bagus dengan dibuktikan pada proses evaluasi. Selain itu sistem telah berhasil merekomendasikan sebanyak 5 superhero lain yang mungkin disukai oleh pengoleksi *action figures*. Untuk hasil lebih meyakinkan juga dapat melihat adanya hasil rekomendasi sama diantara dua algoritma tadi.
 
 > **Ini adalah bagian akhir laporan**
