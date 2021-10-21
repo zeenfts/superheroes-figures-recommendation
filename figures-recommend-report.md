@@ -51,7 +51,7 @@ Solusi yang dapat diterapkan untuk mencapai tujuan tersebut diantaranya:
     <img width="450" height="450" src="https://user-images.githubusercontent.com/59215827/138036908-ab9768df-0fa2-4b4d-81d8-6718b1cbea77.png"><br>
     <sup><sub><a href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa"><i>image source</i></a></sub></sup>
 
-    Algoritma ini sebagaimana pada gambar di atas menghitung persamaan antara dua vektor sesuai dengan sudut kosinus di antara keduanya. Memiliki keunggulan dalam kemudahan interpretasi, pada ruang multidimensi bekerja baik akibat penghitungan yang berdasarkan sudut, dan mampu menangkap hal yang mungkin dideteksi sangat berbeda pada jarak Euclidian. [<sup>7</sup>](https://www.geeksforgeeks.org/cosine-similarity/)
+    Algoritma ini sebagaimana pada gambar di atas menghitung persamaan antara dua vektor sesuai dengan sudut kosinus di antara keduanya. Memiliki keunggulan dalam kemudahan interpretasi, pada ruang multidimensi bekerja baik akibat penghitungan yang berdasarkan sudut, dan mampu menangkap hal yang mungkin dideteksi sangat berbeda pada jarak [Euclidian](https://www.cuemath.com/euclidean-distance-formula/). [<sup>7</sup>](https://www.geeksforgeeks.org/cosine-similarity/)
 
 ---
 <sub><sup>4. sklearn. (2021). "1.6. Nearest Neighbors".</sup></sub><br>
